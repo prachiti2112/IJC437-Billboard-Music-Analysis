@@ -11,6 +11,7 @@ library(tidyverse)
 library(caret)
 library(randomForest)
 library(ROCR)
+library(ggplot2)
 
 #Lodaing the dataset(csv)
 data<- read_csv("billboard_24years_lyrics_spotify.csv")
@@ -147,5 +148,6 @@ ggplot(importance_df, aes(
     y="Importance"
   )+
   theme_minimal()
+
 
 
