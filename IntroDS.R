@@ -29,6 +29,13 @@ data_clean<- data %>%
     decade = floor(year/10)*10
   )
 glimpse(data_clean)
+
+#Training / testing split
+set.seed(123)
+train_index <- createDataPartition(data_clean$ranking,p=0.7,list = FALSE)
+train <- data_clean[train_index, ]
+test <- data_clean[-train_index, ]
+
 #Figure 1- EDA(distributing the chart rank)
 ggplot(data_clean , aes(ranking))+
   geom_histogram(bins = 30) +
@@ -85,11 +92,6 @@ ggplot(cor_data,aes(x=value,y=ranking))+
     y="Chart Rank(lower = better)"
   )+
   theme_minimal()
-#Training / testing split
-set.seed(123)
-train_index <- createDataPartition(data_clean$ranking,p=0.7,list = FALSE)
-train <- data_clean[train_index, ]
-test <- data_clean[-train_index, ]
 #Linear regression model
 lm_model <-lm(
   ranking ~ danceability+energy+loudness+tempo+valence,
